@@ -1,9 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+export type HabitFrequency = 'hourly' | 'daily' | 'weekly' | 'fortnightly' | 'monthly';
+
 export interface Habit {
   id: string;
   name: string;
-  frequency: 'hourly' | 'daily' | 'weekly' | 'biweekly' | 'monthly';
+  frequency: HabitFrequency;
   completedDays: string[];
   createdAt: string;
 }

@@ -6,7 +6,7 @@ export interface Habit {
   id: string;
   name: string;
   frequency: HabitFrequency;
-  completedDays: string[];
+  completedDates: string[];
   createdAt: string;
 }
 
@@ -27,7 +27,7 @@ const habitSlice = createSlice({
         id: Date.now().toString(),
         name: action.payload.name,
         frequency: action.payload.frequency,
-        completedDays: [],
+        completedDates: [],
         createdAt: new Date().toISOString(),
       };
 
@@ -37,12 +37,12 @@ const habitSlice = createSlice({
       const habitFound = state.habits.find(h => h.id === action.payload.id);
 
       if (habitFound) {
-        const index = habitFound.completedDays.indexOf(action.payload.date);
+        const index = habitFound.completedDates.indexOf(action.payload.date);
 
         if (index > -1) {
-          habitFound.completedDays.splice(index, 1);
+          habitFound.completedDates.splice(index, 1);
         } else {
-          habitFound.completedDays.push(action.payload.date);
+          habitFound.completedDates.push(action.payload.date);
         }
       }
     },

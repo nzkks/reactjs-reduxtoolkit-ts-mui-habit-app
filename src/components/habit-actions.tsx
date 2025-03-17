@@ -23,11 +23,11 @@ const HabitActions = ({ habit }: { habit: Habit }) => {
     <Box sx={{ display: 'flex', justifyContent: 'flex-end', gap: 2 }}>
       <Button
         variant="outlined"
-        color={habit.completedDays.includes(today) ? 'success' : 'primary'}
+        color={habit.completedDates.includes(today) ? 'success' : 'primary'}
         startIcon={<CheckCircleIcon />}
         onClick={() => handleCompletedClick(habit.id, today)}
       >
-        {habit.completedDays.includes(today) ? 'Completed' : 'Mark Complete'}
+        {habit.completedDates.includes(today) ? 'Completed' : 'Mark Complete'}
       </Button>
       <Button variant="outlined" color="error" startIcon={<DeleteIcon />} onClick={() => handleRemoveHabit(habit.id)}>
         Delete

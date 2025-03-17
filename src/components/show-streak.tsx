@@ -8,7 +8,7 @@ const ShowStreak = ({ habit }: { habit: Habit }) => {
     const dateString = currentDate.toISOString().split('T')[0];
 
     while (true) {
-      if (habit.completedDays.includes(dateString)) {
+      if (habit.completedDates.includes(dateString)) {
         streak++;
         currentDate.setDate(currentDate.getDate() - 1);
       } else {

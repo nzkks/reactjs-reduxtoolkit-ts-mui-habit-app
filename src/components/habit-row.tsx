@@ -9,7 +9,7 @@ type HabbitRowProps = {
 
 const HabitRow = ({ habit }: HabbitRowProps) => {
   return (
-    <Paper key={habit.id} elevation={2} sx={{ p: 2 }}>
+    <Paper key={habit.id} elevation={2} sx={{ p: 2 }} component="li">
       <Grid2 container spacing={2} alignItems="center">
         <Grid2 size={{ sm: 12, lg: 6 }}>
           <Typography variant="h6">{habit.name}</Typography>

@@ -8,7 +8,7 @@ import HabitRow from './habit-row';
 const HabitList: React.FC = () => {
   const { habits } = useSelector((state: RootState) => state.habits);
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, mt: 4 }}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, mt: 4 }} component="ul">
       {habits.map(habit => (
         <HabitRow key={habit.id} habit={habit} />
       ))}

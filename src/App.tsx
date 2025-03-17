@@ -10,7 +10,7 @@ const HabitStats = lazy(() => import('./components/habit-stats.tsx'));
 function App() {
   return (
     <Provider store={store}>
-      <Container maxWidth="md">
+      <Container maxWidth="md" component="main">
         <Typography component="h1" variant="h4" align="center" sx={{ marginBottom: 4 }}>
           Habit Tracker
         </Typography>

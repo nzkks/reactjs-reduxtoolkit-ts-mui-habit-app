@@ -11,25 +11,22 @@ const HabitActions = ({ habit }: { habit: Habit }) => {
 
   const today = new Date().toISOString().split('T')[0];
 
-  const handleCompletedClick = (id: string, date: string) => {
-    dispatch(toggleComplete({ id, date }));
-  };
-
-  const handleRemoveHabit = (id: string) => {
-    dispatch(removeHabit({ id }));
-  };
-
   return (
     <Box sx={{ display: 'flex', justifyContent: 'flex-end', gap: 2 }}>
       <Button
         variant="outlined"
         color={habit.completedDates.includes(today) ? 'success' : 'primary'}
+        onClick={() => dispatch(toggleComplete({ id: habit.id, date: today }))}
         startIcon={<CheckCircleIcon />}
-        onClick={() => handleCompletedClick(habit.id, today)}
       >
         {habit.completedDates.includes(today) ? 'Completed' : 'Mark Complete'}
       </Button>
-      <Button variant="outlined" color="error" startIcon={<DeleteIcon />} onClick={() => handleRemoveHabit(habit.id)}>
+      <Button
+        variant="outlined"
+        color="error"
+        startIcon={<DeleteIcon />}
+        onClick={() => dispatch(removeHabit({ id: habit.id }))}
+      >
         Delete
       </Button>
     </Box>

@@ -1,11 +1,11 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Box, Button, Grid2, Paper, Typography } from '@mui/material';
+import { Box, Button, Grid2, LinearProgress, Paper, Typography } from '@mui/material';
 import { CheckCircle as CheckCircleIcon } from '@mui/icons-material';
 import { Delete as DeleteIcon } from '@mui/icons-material';
 
 import { AppDispatch, RootState } from '../store/store';
-import { toggleComplete, removeHabit } from '../store/habit-slice';
+import { toggleComplete, removeHabit, Habit } from '../store/habit-slice';
 
 const HabitList: React.FC = () => {
   const { habits } = useSelector((state: RootState) => state.habits);
@@ -19,6 +19,23 @@ const HabitList: React.FC = () => {
 
   const handleRemoveHabit = (id: string) => {
     dispatch(removeHabit({ id }));
+  };
+
+  const getStreak = (habit: Habit) => {
+    let streak = 0;
+    const currentDate = new Date();
+    const dateString = currentDate.toISOString().split('T')[0];
+
+    while (true) {
+      if (habit.completedDays.includes(dateString)) {
+        streak++;
+        currentDate.setDate(currentDate.getDate() - 1);
+      } else {
+        break;
+      }
+    }
+
+    return streak;
   };
 
   return (
@@ -53,6 +70,10 @@ const HabitList: React.FC = () => {
               </Box>
             </Grid2>
           </Grid2>
+          <Box sx={{ mt: 2 }}>
+            <Typography variant="body2">Current Streak: {getStreak(habit)} days</Typography>
+            <LinearProgress variant="determinate" value={(getStreak(habit) / 30) * 100} sx={{ mt: 1 }} />
+          </Box>
         </Paper>
       ))}
     </Box>

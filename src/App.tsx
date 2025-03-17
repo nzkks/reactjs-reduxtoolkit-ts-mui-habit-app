@@ -1,5 +1,13 @@
+import { Provider } from 'react-redux';
+
+import store from './store/store.ts';
+
 function App() {
-  return <div>Habit app</div>;
+  return (
+    <Provider store={store}>
+      <div>Habit app</div>
+    </Provider>
+  );
 }
 
 export default App;

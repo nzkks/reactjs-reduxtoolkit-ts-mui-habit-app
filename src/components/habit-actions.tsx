@@ -25,7 +25,7 @@ const HabitActions = ({ habit }: { habit: Habit }) => {
         variant="outlined"
         color="error"
         startIcon={<DeleteIcon />}
-        onClick={() => dispatch(removeHabit({ id: habit.id }))}
+        onClick={() => dispatch(removeHabit(habit.id))}
       >
         Delete
       </Button>

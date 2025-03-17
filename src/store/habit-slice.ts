@@ -73,25 +73,23 @@ const habitSlice = createSlice({
         }
       }
     },
-    removeHabit: (state, action: PayloadAction<{ id: string }>) => {
-      state.habits = state.habits.filter(h => h.id !== action.payload.id);
+    removeHabit: (state, action: PayloadAction<string>) => {
+      state.habits = state.habits.filter(h => h.id !== action.payload);
     },
   },
   extraReducers: builder => {
-    builder.addCase(fetchHabits.pending, state => {
-      state.isLoading = true;
-      state.error = null;
-    });
-
-    builder.addCase(fetchHabits.fulfilled, (state, action) => {
-      state.isLoading = false;
-      state.habits = action.payload;
-    });
-
-    builder.addCase(fetchHabits.rejected, (state, action) => {
-      state.isLoading = false;
-      state.error = action.error.message || 'Failed to fetch habits';
-    });
+    builder
+      .addCase(fetchHabits.pending, state => {
+        state.isLoading = true;
+      })
+      .addCase(fetchHabits.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.habits = action.payload;
+      })
+      .addCase(fetchHabits.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.error.message || 'Failed to fetch habits';
+      });
   },
 });
 

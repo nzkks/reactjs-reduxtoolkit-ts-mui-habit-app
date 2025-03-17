@@ -1,13 +1,26 @@
 import React from 'react';
-import { HabitFrequency } from '../store/habit-slice';
+import { useDispatch } from 'react-redux';
 import { Box, Button, FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/material';
 
-const AddHabbitForm: React.FC = () => {
+import { addHabit, HabitFrequency } from '../store/habit-slice';
+import { AppDispatch } from '../store/store';
+
+const AddHabitForm: React.FC = () => {
   const [name, setName] = React.useState<string>('');
   const [frequency, setFrequency] = React.useState<HabitFrequency>('daily');
+  const dispatch = useDispatch<AppDispatch>();
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (name.trim()) {
+      dispatch(addHabit({ name, frequency }));
+      setName('');
+    }
+  };
 
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
         <TextField
           label="Habit Name"
@@ -35,4 +48,4 @@ const AddHabbitForm: React.FC = () => {
   );
 };
 
-export default AddHabbitForm;
+export default AddHabitForm;

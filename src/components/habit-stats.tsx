@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { AppDispatch, RootState } from '../store/store';
 import { fetchHabits } from '../store/habit-slice';
+import { getStreak } from '../utils';
 
 const HabitStats: React.FC = () => {
   const { habits, isLoading, error } = useSelector((state: RootState) => state.habits);
@@ -24,11 +25,12 @@ const HabitStats: React.FC = () => {
   const getTotalHabits = () => habits.length;
 
   const getCompletedToday = () => {
-    return 0;
+    const today = new Date().toISOString().split('T')[0];
+    return habits.filter(habit => habit.completedDates.includes(today)).length;
   };
 
   const getLongestStreak = () => {
-    return 0;
+    return Math.max(...habits.map(getStreak), 0);
   };
 
   return (

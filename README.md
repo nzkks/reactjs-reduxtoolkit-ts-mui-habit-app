@@ -1,11 +1,17 @@
 # Habit Tracker app using Vite + React + TS + Redux Toolkit + MUI
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## TODO:
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- add persistence while page refresh. Example: localStorage
+- store habits in the database. Example: Sqlite
+- show a message when there are no habits
+- use a form library. React hook form or Tanstack form
+- use form validation. Zod
+- any Typescript improvements
+- Authentication (login, logout, user dashboard, user settings)
+- Authorisation (user vs admin roles and capabilities)
+- any style improvements including animations
+- showing fun images based on age?
 
 ## Expanding the ESLint configuration
 

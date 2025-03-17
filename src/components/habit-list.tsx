@@ -5,7 +5,7 @@ import { CheckCircle as CheckCircleIcon } from '@mui/icons-material';
 import { Delete as DeleteIcon } from '@mui/icons-material';
 
 import { AppDispatch, RootState } from '../store/store';
-import { toggleComplete } from '../store/habit-slice';
+import { toggleComplete, removeHabit } from '../store/habit-slice';
 
 const HabitList: React.FC = () => {
   const { habits } = useSelector((state: RootState) => state.habits);
@@ -15,6 +15,10 @@ const HabitList: React.FC = () => {
 
   const handleCompletedClick = (id: string, date: string) => {
     dispatch(toggleComplete({ id, date }));
+  };
+
+  const handleRemoveHabit = (id: string) => {
+    dispatch(removeHabit({ id }));
   };
 
   return (
@@ -38,7 +42,12 @@ const HabitList: React.FC = () => {
                 >
                   {habit.completedDays.includes(today) ? 'Completed' : 'Mark Complete'}
                 </Button>
-                <Button variant="outlined" color="error" startIcon={<DeleteIcon />}>
+                <Button
+                  variant="outlined"
+                  color="error"
+                  startIcon={<DeleteIcon />}
+                  onClick={() => handleRemoveHabit(habit.id)}
+                >
                   Delete
                 </Button>
               </Box>

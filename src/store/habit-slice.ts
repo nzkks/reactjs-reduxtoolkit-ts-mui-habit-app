@@ -46,9 +46,12 @@ const habitSlice = createSlice({
         }
       }
     },
+    removeHabit: (state, action: PayloadAction<{ id: string }>) => {
+      state.habits = state.habits.filter(h => h.id !== action.payload.id);
+    },
   },
 });
 
-export const { addHabit, toggleComplete } = habitSlice.actions;
+export const { addHabit, toggleComplete, removeHabit } = habitSlice.actions;
 
 export default habitSlice.reducer;

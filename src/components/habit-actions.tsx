@@ -1,0 +1,39 @@
+import { Box, Button } from '@mui/material';
+import { CheckCircle as CheckCircleIcon } from '@mui/icons-material';
+import { Delete as DeleteIcon } from '@mui/icons-material';
+import { useDispatch } from 'react-redux';
+
+import { AppDispatch } from '../store/store';
+import { Habit, removeHabit, toggleComplete } from '../store/habit-slice';
+
+const HabitActions = ({ habit }: { habit: Habit }) => {
+  const dispatch = useDispatch<AppDispatch>();
+
+  const today = new Date().toISOString().split('T')[0];
+
+  const handleCompletedClick = (id: string, date: string) => {
+    dispatch(toggleComplete({ id, date }));
+  };
+
+  const handleRemoveHabit = (id: string) => {
+    dispatch(removeHabit({ id }));
+  };
+
+  return (
+    <Box sx={{ display: 'flex', justifyContent: 'flex-end', gap: 2 }}>
+      <Button
+        variant="outlined"
+        color={habit.completedDays.includes(today) ? 'success' : 'primary'}
+        startIcon={<CheckCircleIcon />}
+        onClick={() => handleCompletedClick(habit.id, today)}
+      >
+        {habit.completedDays.includes(today) ? 'Completed' : 'Mark Complete'}
+      </Button>
+      <Button variant="outlined" color="error" startIcon={<DeleteIcon />} onClick={() => handleRemoveHabit(habit.id)}>
+        Delete
+      </Button>
+    </Box>
+  );
+};
+
+export default HabitActions;

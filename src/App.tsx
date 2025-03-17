@@ -3,6 +3,7 @@ import { Container, Typography } from '@mui/material';
 
 import store from './store/store.ts';
 import AddHabitForm from './components/add-habit-form.tsx';
+import HabitList from './components/habit-list.tsx';
 
 function App() {
   return (
@@ -12,6 +13,8 @@ function App() {
           Habit Tracker
         </Typography>
         <AddHabitForm />
+
+        <HabitList />
       </Container>
     </Provider>
   );

@@ -1,10 +1,11 @@
+import { lazy, Suspense } from 'react';
 import { Provider } from 'react-redux';
 import { Container, Typography } from '@mui/material';
 
 import store from './store/store.ts';
 import AddHabitForm from './components/add-habit-form.tsx';
-import HabitList from './components/habit-list.tsx';
-import HabitStats from './components/habit-stats.tsx';
+const HabitList = lazy(() => import('./components/habit-list.tsx'));
+const HabitStats = lazy(() => import('./components/habit-stats.tsx'));
 
 function App() {
   return (
@@ -15,8 +16,13 @@ function App() {
         </Typography>
         <AddHabitForm />
 
-        <HabitList />
-        <HabitStats />
+        <Suspense fallback={<div>Loading...</div>}>
+          <HabitList />
+        </Suspense>
+
+        <Suspense fallback={<div>Loading...</div>}>
+          <HabitStats />
+        </Suspense>
       </Container>
     </Provider>
   );

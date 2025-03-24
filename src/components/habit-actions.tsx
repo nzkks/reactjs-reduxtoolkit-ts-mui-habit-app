@@ -1,13 +1,18 @@
-import { Box, Button } from '@mui/material';
+import { useDispatch } from 'react-redux';
+import { Box, Button, IconButton } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import { CheckCircle as CheckCircleIcon } from '@mui/icons-material';
 import { Delete as DeleteIcon } from '@mui/icons-material';
-import { useDispatch } from 'react-redux';
 
 import { AppDispatch } from '../store/store';
 import { Habit, removeHabit, toggleComplete } from '../store/habit-slice';
 
 const HabitActions = ({ habit }: { habit: Habit }) => {
   const dispatch = useDispatch<AppDispatch>();
+
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.up('sm'));
 
   const today = new Date().toISOString().split('T')[0];
 
@@ -21,14 +26,20 @@ const HabitActions = ({ habit }: { habit: Habit }) => {
       >
         {habit.completedDates.includes(today) ? 'Completed' : 'Mark Complete'}
       </Button>
-      <Button
-        variant="outlined"
-        color="error"
-        startIcon={<DeleteIcon />}
-        onClick={() => dispatch(removeHabit(habit.id))}
-      >
-        Delete
-      </Button>
+      {matches ? (
+        <Button
+          variant="outlined"
+          color="error"
+          startIcon={<DeleteIcon />}
+          onClick={() => dispatch(removeHabit(habit.id))}
+        >
+          Delete
+        </Button>
+      ) : (
+        <IconButton color="error" onClick={() => dispatch(removeHabit(habit.id))} aria-label="delete">
+          <DeleteIcon />
+        </IconButton>
+      )}
     </Box>
   );
 };

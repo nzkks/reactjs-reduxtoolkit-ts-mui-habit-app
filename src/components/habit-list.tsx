@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Box } from '@mui/material';
+import { List } from '@mui/material';
 
 import { RootState } from '../store/store';
 import HabitRow from './habit-row';
@@ -8,11 +8,11 @@ import HabitRow from './habit-row';
 const HabitList: React.FC = () => {
   const { habits } = useSelector((state: RootState) => state.habits);
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, mt: 4 }} component="ul">
+    <List>
       {habits.map(habit => (
         <HabitRow key={habit.id} habit={habit} />
       ))}
-    </Box>
+    </List>
   );
 };
 

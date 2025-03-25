@@ -22,7 +22,14 @@ const HabitStats: React.FC = () => {
     return <Typography color="error">{error}</Typography>;
   }
 
-  const getTotalHabits = () => habits.length;
+  const getTotalHabits = () =>
+    habits.length > 0 ? (
+      habits.length
+    ) : (
+      <Box component="span" sx={{ color: 'red' }}>
+        No habits added yet.
+      </Box>
+    );
 
   const getCompletedToday = () => {
     const today = new Date().toISOString().split('T')[0];

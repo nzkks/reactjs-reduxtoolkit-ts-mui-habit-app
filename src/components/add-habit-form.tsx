@@ -7,7 +7,7 @@ import { addHabit, HabitFrequency } from '../store/habit-slice';
 import { AppDispatch } from '../store/store';
 
 const habitSchema = z.object({
-  name: z.string().min(3, { message: 'Habit name must be at least 3 characters' }),
+  habitName: z.string().min(3, { message: 'Habit name must be at least 3 characters' }),
   frequency: z.enum(['hourly', 'daily', 'weekly', 'fortnightly', 'monthly']),
 });
 
@@ -18,7 +18,7 @@ const AddHabitForm: React.FC = () => {
 
   const form = useForm({
     defaultValues: {
-      name: '',
+      habitName: '',
       frequency: 'daily',
     } as HabitSchema,
     validators: { onChange: habitSchema },
@@ -37,7 +37,7 @@ const AddHabitForm: React.FC = () => {
     >
       <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
         <form.Field
-          name="name"
+          name="habitName"
           validators={{ onChangeAsyncDebounceMs: 500 }}
           children={({ state, handleChange, handleBlur }) => {
             return (

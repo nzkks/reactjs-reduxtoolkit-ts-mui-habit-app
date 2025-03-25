@@ -15,7 +15,7 @@ const HabitRow = ({ habit }: HabbitRowProps) => {
       <Paper elevation={2} sx={{ p: 2, width: '100%' }}>
         <Grid2 container spacing={2} alignItems="center">
           <Grid2 size={{ sm: 12, lg: 6 }}>
-            <Typography variant="h6">{habit.name}</Typography>
+            <Typography variant="h6">{habit.habitName}</Typography>
             <Typography variant="body2" color="text.secondary">
               {capitalize(habit.frequency)}
             </Typography>

@@ -4,7 +4,7 @@ export type HabitFrequency = 'hourly' | 'daily' | 'weekly' | 'fortnightly' | 'mo
 
 export interface Habit {
   id: string;
-  name: string;
+  habitName: string;
   frequency: HabitFrequency;
   completedDates: string[];
   createdAt: string;
@@ -29,14 +29,14 @@ export const fetchHabits = createAsyncThunk('habits/fetchHabits', async () => {
   const mockHabits: Habit[] = [
     {
       id: '1',
-      name: 'Read',
+      habitName: 'Read',
       frequency: 'daily',
       completedDates: [],
       createdAt: new Date().toISOString(),
     },
     {
       id: '2',
-      name: 'Exercise',
+      habitName: 'Exercise',
       frequency: 'daily',
       completedDates: [],
       createdAt: new Date().toISOString(),
@@ -49,10 +49,10 @@ const habitSlice = createSlice({
   name: 'habits',
   initialState,
   reducers: {
-    addHabit: (state, action: PayloadAction<{ name: string; frequency: HabitFrequency }>) => {
+    addHabit: (state, action: PayloadAction<{ habitName: string; frequency: HabitFrequency }>) => {
       const newHabit: Habit = {
         id: Date.now().toString(),
-        name: action.payload.name,
+        habitName: action.payload.habitName,
         frequency: action.payload.frequency,
         completedDates: [],
         createdAt: new Date().toISOString(),

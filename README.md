@@ -1,8 +1,8 @@
 # Habit Tracker
 
-- Habits can be added with a frequency pattern (hourly, daily, weekly, fortnightly and monthly) selected
+- Habits can be added with a frequency pattern (daily, weekly, fortnightly and monthly) selected
 - The added habits will be shown as a list
-- Each habit will show the details along with the 'Mark as Complete' button and 'Delete' button. Alsp it shows the current streak as a progess bar
+- Each habit will show the details along with the 'Mark as Complete' button and 'Delete' button. Also it shows the current streak as a progess bar
 - At the bottom of the page, there will be Habit Statistics that shows total habits, habits completed today and longest streak
 
 ### Tech used

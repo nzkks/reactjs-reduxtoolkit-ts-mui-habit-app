@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-export type HabitFrequency = 'hourly' | 'daily' | 'weekly' | 'fortnightly' | 'monthly';
+export type HabitFrequency = 'daily' | 'weekly' | 'fortnightly' | 'monthly';
 
 export interface Habit {
   id: string;

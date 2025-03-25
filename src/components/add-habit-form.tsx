@@ -8,7 +8,7 @@ import { AppDispatch } from '../store/store';
 
 const habitSchema = z.object({
   habitName: z.string().min(3, { message: 'Habit name must be at least 3 characters' }),
-  frequency: z.enum(['hourly', 'daily', 'weekly', 'fortnightly', 'monthly']),
+  frequency: z.enum(['daily', 'weekly', 'fortnightly', 'monthly']),
 });
 
 type HabitSchema = z.infer<typeof habitSchema>;
@@ -64,7 +64,6 @@ const AddHabitForm: React.FC = () => {
                   label="Frequency"
                   onChange={e => handleChange(e.target.value as HabitFrequency)}
                 >
-                  <MenuItem value="hourly">Hourly</MenuItem>
                   <MenuItem value="daily">Daily</MenuItem>
                   <MenuItem value="weekly">Weekly</MenuItem>
                   <MenuItem value="fortnightly">Fortnightly</MenuItem>

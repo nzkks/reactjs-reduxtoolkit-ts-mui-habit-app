@@ -48,7 +48,7 @@ const AddHabitForm: React.FC = () => {
                 onChange={e => handleChange(e.target.value)}
                 placeholder="Write your habit name here"
                 error={state.meta.isTouched && state.meta.errors.length > 0}
-                // helperText={state.meta.isTouched && state.meta.errors.join(', ')}
+                helperText={state.meta.isTouched && state.meta.errors[0]?.message}
               />
             );
           }}
@@ -70,7 +70,7 @@ const AddHabitForm: React.FC = () => {
                   <MenuItem value="fortnightly">Fortnightly</MenuItem>
                   <MenuItem value="monthly">Monthly</MenuItem>
                 </Select>
-                <FormHelperText>{state.meta.isTouched && state.meta.errors.join(', ')}</FormHelperText>
+                <FormHelperText>{state.meta.isTouched && state.meta.errors[0]?.message}</FormHelperText>
               </FormControl>
             </>
           )}

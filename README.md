@@ -10,6 +10,8 @@
 - React 19
 - Typescript
 - Redux Toolkit
+- Tanstack Form
+- Zod
 - Material-UI
 
 ### Implementation Highlights
@@ -23,8 +25,8 @@
 - edit a habit (title and frequency)
 - show a message when there are no habits
 - add a frequency filter
-- use a form library. React hook form or Tanstack form
-- use form validation. Zod
+- ~~use a form library. React hook form or Tanstack form~~
+- ~~use form validation. Zod~~
 - any Typescript improvements
 - Authentication (login, logout, user dashboard, user settings)
 - Authorisation (user vs admin roles and capabilities)

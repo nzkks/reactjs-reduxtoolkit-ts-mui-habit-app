@@ -3,7 +3,7 @@ import { Provider } from 'react-redux';
 import { Container, Typography } from '@mui/material';
 
 import store from './store/store.ts';
-import AddHabitForm from './components/add-habit-form.tsx';
+import HabitForm from './components/habit-form.tsx';
 const HabitList = lazy(() => import('./components/habit-list.tsx'));
 const HabitStats = lazy(() => import('./components/habit-stats.tsx'));
 
@@ -14,7 +14,7 @@ function App() {
         <Typography component="h1" variant="h4" align="center" sx={{ marginBottom: 4 }}>
           Habit Tracker
         </Typography>
-        <AddHabitForm />
+        <HabitForm />
 
         <Suspense fallback={<div>Loading...</div>}>
           <HabitList />

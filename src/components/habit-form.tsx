@@ -14,7 +14,7 @@ const habitSchema = z.object({
 
 type HabitSchema = z.infer<typeof habitSchema>;
 
-const AddHabitForm = () => {
+const HabitForm = () => {
   const { habitToEdit } = useSelector((state: RootState) => state.habits);
   const dispatch = useDispatch<AppDispatch>();
 
@@ -108,4 +108,4 @@ const AddHabitForm = () => {
   );
 };
 
-export default AddHabitForm;
+export default HabitForm;

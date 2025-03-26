@@ -2,11 +2,10 @@ import { useDispatch } from 'react-redux';
 import { Box, Button, IconButton } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import { CheckCircle as CheckCircleIcon } from '@mui/icons-material';
-import { Delete as DeleteIcon } from '@mui/icons-material';
+import { CheckCircle as CheckCircleIcon, Delete as DeleteIcon, Edit as EditIcon } from '@mui/icons-material';
 
 import { AppDispatch } from '../store/store';
-import { Habit, removeHabit, toggleComplete } from '../store/habit-slice';
+import { Habit, editHabit, removeHabit, toggleComplete } from '../store/habit-slice';
 
 const HabitActions = ({ habit }: { habit: Habit }) => {
   const dispatch = useDispatch<AppDispatch>();
@@ -18,6 +17,14 @@ const HabitActions = ({ habit }: { habit: Habit }) => {
 
   return (
     <Box sx={{ display: 'flex', justifyContent: 'flex-end', gap: 2 }}>
+      <Button
+        variant="outlined"
+        color="success"
+        onClick={() => dispatch(editHabit({ id: habit.id }))}
+        startIcon={<EditIcon />}
+      >
+        Edit
+      </Button>
       <Button
         variant="outlined"
         color={habit.completedDates.includes(today) ? 'success' : 'primary'}

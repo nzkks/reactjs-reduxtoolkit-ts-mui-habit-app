@@ -8,16 +8,19 @@ export interface Habit {
   frequency: HabitFrequency;
   completedDates: string[];
   createdAt: string;
+  editedAt: string;
 }
 
 interface HabitState {
   habits: Habit[];
+  habitToEdit: Habit | null;
   isLoading: boolean;
   error: string | null;
 }
 
 const initialState: HabitState = {
   habits: [],
+  habitToEdit: null,
   isLoading: false,
   error: null,
 };
@@ -33,6 +36,7 @@ export const fetchHabits = createAsyncThunk('habits/fetchHabits', async () => {
       frequency: 'daily',
       completedDates: [],
       createdAt: new Date().toISOString(),
+      editedAt: new Date().toISOString(),
     },
     {
       id: '2',
@@ -40,6 +44,7 @@ export const fetchHabits = createAsyncThunk('habits/fetchHabits', async () => {
       frequency: 'daily',
       completedDates: [],
       createdAt: new Date().toISOString(),
+      editedAt: new Date().toISOString(),
     },
   ];
   return mockHabits;
@@ -56,9 +61,31 @@ const habitSlice = createSlice({
         frequency: action.payload.frequency,
         completedDates: [],
         createdAt: new Date().toISOString(),
+        editedAt: new Date().toISOString(),
       };
 
       state.habits.push(newHabit);
+    },
+    editHabit: (state, action: PayloadAction<{ id: string }>) => {
+      const habitFound = state.habits.find(h => h.id === action.payload.id);
+
+      if (habitFound) {
+        state.habitToEdit = habitFound;
+      }
+    },
+    updateHabit: (state, action: PayloadAction<{ id: string; habitName: string; frequency: HabitFrequency }>) => {
+      const habitFound = state.habits.find(h => h.id === action.payload.id);
+
+      if (habitFound) {
+        const updatedHabit = { ...habitFound };
+
+        updatedHabit.habitName = action.payload.habitName;
+        updatedHabit.frequency = action.payload.frequency;
+        updatedHabit.editedAt = new Date().toISOString();
+
+        state.habits = state.habits.map(h => (h.id === action.payload.id ? updatedHabit : h));
+      }
+      state.habitToEdit = null;
     },
     toggleComplete: (state, action: PayloadAction<{ id: string; date: string }>) => {
       const habitFound = state.habits.find(h => h.id === action.payload.id);
@@ -93,6 +120,6 @@ const habitSlice = createSlice({
   },
 });
 
-export const { addHabit, toggleComplete, removeHabit } = habitSlice.actions;
+export const { addHabit, editHabit, updateHabit, toggleComplete, removeHabit } = habitSlice.actions;
 
 export default habitSlice.reducer;

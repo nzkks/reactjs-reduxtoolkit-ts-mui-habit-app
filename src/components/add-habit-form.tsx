@@ -1,10 +1,11 @@
-import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from '@tanstack/react-form';
 import { z } from 'zod';
 import { Box, Button, FormControl, FormHelperText, InputLabel, MenuItem, Select, TextField } from '@mui/material';
 
-import { addHabit, HabitFrequency } from '../store/habit-slice';
-import { AppDispatch } from '../store/store';
+import { addHabit, updateHabit, HabitFrequency } from '../store/habit-slice';
+import { AppDispatch, RootState } from '../store/store';
 
 const habitSchema = z.object({
   habitName: z.string().min(3, { message: 'Habit name must be at least 3 characters' }),
@@ -13,7 +14,8 @@ const habitSchema = z.object({
 
 type HabitSchema = z.infer<typeof habitSchema>;
 
-const AddHabitForm: React.FC = () => {
+const AddHabitForm = () => {
+  const { habitToEdit } = useSelector((state: RootState) => state.habits);
   const dispatch = useDispatch<AppDispatch>();
 
   const form = useForm({
@@ -23,9 +25,22 @@ const AddHabitForm: React.FC = () => {
     } as HabitSchema,
     validators: { onChange: habitSchema },
     onSubmit: async ({ value }) => {
-      dispatch(addHabit(value));
+      if (habitToEdit) {
+        dispatch(updateHabit({ id: habitToEdit.id, ...value }));
+      } else {
+        dispatch(addHabit(value));
+      }
     },
   });
+
+  useEffect(() => {
+    if (habitToEdit) {
+      form.setFieldValue('habitName', habitToEdit.habitName);
+      form.setFieldValue('frequency', habitToEdit.frequency);
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [habitToEdit]);
 
   return (
     <form
@@ -80,7 +95,7 @@ const AddHabitForm: React.FC = () => {
           children={([canSubmit, isSubmitting]) => (
             <Box sx={{ display: 'flex', gap: 2 }}>
               <Button variant="contained" type="submit" color="primary" disabled={!canSubmit}>
-                {isSubmitting ? '...' : 'Add Habit'}
+                {isSubmitting ? '...' : habitToEdit ? 'Update Habit' : 'Add Habit'}
               </Button>
               <Button variant="contained" type="reset" color="warning" onClick={() => form.reset()}>
                 Reset

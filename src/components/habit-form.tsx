@@ -30,6 +30,7 @@ const HabitForm = () => {
       } else {
         dispatch(addHabit(value));
       }
+      form.reset();
     },
   });
 

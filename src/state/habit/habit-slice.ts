@@ -1,5 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
+import { AppDispatch, RootState } from '../store';
+
 export type HabitFrequency = 'daily' | 'weekly' | 'fortnightly' | 'monthly';
 type HabitFrequencyAll = 'all';
 export type HabitFrequencyAndAll = HabitFrequency | HabitFrequencyAll;
@@ -31,7 +33,14 @@ const initialState: HabitState = {
   error: null,
 };
 
-export const fetchHabits = createAsyncThunk('habits/fetchHabits', async () => {
+const createAppAsyncThunk = createAsyncThunk.withTypes<{
+  state: RootState;
+  dispatch: AppDispatch;
+  rejectValue: string;
+  extra: { s: string; n: number };
+}>();
+
+export const fetchHabits = createAppAsyncThunk('habits/fetchHabits', async () => {
   // Simulating an API call
   await new Promise(resolve => setTimeout(resolve, 1000));
 

@@ -33,38 +33,6 @@ const initialState: HabitState = {
   error: null,
 };
 
-const createAppAsyncThunk = createAsyncThunk.withTypes<{
-  state: RootState;
-  dispatch: AppDispatch;
-  rejectValue: string;
-  extra: { s: string; n: number };
-}>();
-
-export const fetchHabits = createAppAsyncThunk('habits/fetchHabits', async () => {
-  // Simulating an API call
-  await new Promise(resolve => setTimeout(resolve, 1000));
-
-  const mockHabits: Habit[] = [
-    {
-      id: '1',
-      habitName: 'Read',
-      frequency: 'weekly',
-      completedDates: [],
-      createdAt: new Date().toISOString(),
-      editedAt: new Date().toISOString(),
-    },
-    {
-      id: '2',
-      habitName: 'Exercise',
-      frequency: 'daily',
-      completedDates: [],
-      createdAt: new Date().toISOString(),
-      editedAt: new Date().toISOString(),
-    },
-  ];
-  return mockHabits;
-});
-
 const updateFilteredHabits = (state: HabitState) => {
   state.filteredHabits =
     state.selectedFrequency === 'all'
@@ -161,6 +129,38 @@ const habitSlice = createSlice({
         state.error = action.error.message || 'Failed to fetch habits';
       });
   },
+});
+
+const createAppAsyncThunk = createAsyncThunk.withTypes<{
+  state: RootState;
+  dispatch: AppDispatch;
+  rejectValue: string;
+  extra: { s: string; n: number };
+}>();
+
+export const fetchHabits = createAppAsyncThunk('habits/fetchHabits', async () => {
+  // Simulating an API call
+  await new Promise(resolve => setTimeout(resolve, 1000));
+
+  const mockHabits: Habit[] = [
+    {
+      id: '1',
+      habitName: 'Read',
+      frequency: 'weekly',
+      completedDates: [],
+      createdAt: new Date().toISOString(),
+      editedAt: new Date().toISOString(),
+    },
+    {
+      id: '2',
+      habitName: 'Exercise',
+      frequency: 'daily',
+      completedDates: [],
+      createdAt: new Date().toISOString(),
+      editedAt: new Date().toISOString(),
+    },
+  ];
+  return mockHabits;
 });
 
 export const { addHabit, editHabit, updateHabit, toggleComplete, removeHabit, filterHabitsByFrequency } =

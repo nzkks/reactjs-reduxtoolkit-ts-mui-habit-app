@@ -114,6 +114,7 @@ const habitSlice = createSlice({
           habitFound.completedDates.push(action.payload.date);
         }
       }
+      updateFilteredHabits(state);
     },
     removeHabit: (state, action: PayloadAction<string>) => {
       state.habits = state.habits.filter(h => h.id !== action.payload);

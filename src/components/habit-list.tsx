@@ -2,14 +2,14 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { List } from '@mui/material';
 
-import { RootState } from '../store/store';
+import { Habit, selectFilteredHabits } from '../store/habit-slice';
 import HabitRow from './habit-row';
 
 const HabitList: React.FC = () => {
-  const { habits } = useSelector((state: RootState) => state.habits);
+  const filteredHabits = useSelector(selectFilteredHabits);
   return (
     <List>
-      {habits.map(habit => (
+      {filteredHabits.map((habit: Habit) => (
         <HabitRow key={habit.id} habit={habit} />
       ))}
     </List>

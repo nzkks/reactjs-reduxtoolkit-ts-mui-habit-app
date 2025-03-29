@@ -1,6 +1,8 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export type HabitFrequency = 'daily' | 'weekly' | 'fortnightly' | 'monthly';
+type HabitFrequencyAll = 'all';
+export type HabitFrequencyAndAll = HabitFrequency | HabitFrequencyAll;
 
 export interface Habit {
   id: string;
@@ -14,6 +16,8 @@ export interface Habit {
 interface HabitState {
   habits: Habit[];
   habitToEdit: Habit | null;
+  selectedFrequency: HabitFrequencyAndAll;
+  filteredHabits: Habit[];
   isLoading: boolean;
   error: string | null;
 }
@@ -21,6 +25,8 @@ interface HabitState {
 const initialState: HabitState = {
   habits: [],
   habitToEdit: null,
+  selectedFrequency: 'all',
+  filteredHabits: [],
   isLoading: false,
   error: null,
 };
@@ -33,7 +39,7 @@ export const fetchHabits = createAsyncThunk('habits/fetchHabits', async () => {
     {
       id: '1',
       habitName: 'Read',
-      frequency: 'daily',
+      frequency: 'weekly',
       completedDates: [],
       createdAt: new Date().toISOString(),
       editedAt: new Date().toISOString(),
@@ -50,6 +56,13 @@ export const fetchHabits = createAsyncThunk('habits/fetchHabits', async () => {
   return mockHabits;
 });
 
+const updateFilteredHabits = (state: HabitState) => {
+  state.filteredHabits =
+    state.selectedFrequency === 'all'
+      ? state.habits
+      : state.habits.filter(h => h.frequency === state.selectedFrequency);
+};
+
 const habitSlice = createSlice({
   name: 'habits',
   initialState,
@@ -65,6 +78,7 @@ const habitSlice = createSlice({
       };
 
       state.habits.push(newHabit);
+      updateFilteredHabits(state);
     },
     editHabit: (state, action: PayloadAction<{ id: string }>) => {
       const habitFound = state.habits.find(h => h.id === action.payload.id);
@@ -86,6 +100,7 @@ const habitSlice = createSlice({
         state.habits = state.habits.map(h => (h.id === action.payload.id ? updatedHabit : h));
       }
       state.habitToEdit = null;
+      updateFilteredHabits(state);
     },
     toggleComplete: (state, action: PayloadAction<{ id: string; date: string }>) => {
       const habitFound = state.habits.find(h => h.id === action.payload.id);
@@ -102,7 +117,24 @@ const habitSlice = createSlice({
     },
     removeHabit: (state, action: PayloadAction<string>) => {
       state.habits = state.habits.filter(h => h.id !== action.payload);
+      updateFilteredHabits(state);
     },
+    filterHabitsByFrequency: (state, action: PayloadAction<HabitFrequencyAndAll>) => {
+      state.selectedFrequency = action.payload;
+      if (action.payload === 'all') {
+        state.filteredHabits = state.habits;
+      } else {
+        state.filteredHabits = state.habits.filter(h => h.frequency === action.payload);
+      }
+    },
+  },
+  selectors: {
+    selectHabits: state => state.habits,
+    selectFilteredHabits: state => state.filteredHabits,
+    selectHabitToEdit: state => state.habitToEdit,
+    selectSelectedFrequency: state => state.selectedFrequency,
+    selectIsLoading: state => state.isLoading,
+    selectError: state => state.error,
   },
   extraReducers: builder => {
     builder
@@ -112,6 +144,7 @@ const habitSlice = createSlice({
       .addCase(fetchHabits.fulfilled, (state, action) => {
         state.isLoading = false;
         state.habits = action.payload;
+        state.filteredHabits = action.payload;
       })
       .addCase(fetchHabits.rejected, (state, action) => {
         state.isLoading = false;
@@ -120,6 +153,16 @@ const habitSlice = createSlice({
   },
 });
 
-export const { addHabit, editHabit, updateHabit, toggleComplete, removeHabit } = habitSlice.actions;
+export const { addHabit, editHabit, updateHabit, toggleComplete, removeHabit, filterHabitsByFrequency } =
+  habitSlice.actions;
+
+export const {
+  selectHabits,
+  selectFilteredHabits,
+  selectHabitToEdit,
+  selectSelectedFrequency,
+  selectIsLoading,
+  selectError,
+} = habitSlice.selectors;
 
 export default habitSlice.reducer;

@@ -1,8 +1,8 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 
-import { filterHabitsByFrequency, HabitFrequencyAndAll, selectSelectedFrequency } from '../store/habit-slice';
-import { AppDispatch } from '../store/store';
+import { filterHabitsByFrequency, HabitFrequencyAndAll, selectSelectedFrequency } from '../../state/habit/habit-slice';
+import { AppDispatch } from '../../state/store';
 
 const frequencies = [
   { label: 'All', value: 'all' },

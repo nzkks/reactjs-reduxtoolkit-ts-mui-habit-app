@@ -2,9 +2,9 @@ import React, { useEffect } from 'react';
 import { Paper, Typography, Box, LinearProgress } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { AppDispatch } from '../store/store';
-import { fetchHabits, selectError, selectHabits, selectIsLoading } from '../store/habit-slice';
-import { getStreak } from '../utils';
+import { AppDispatch } from '../../state/store';
+import { fetchHabits, selectError, selectHabits, selectIsLoading } from '../../state/habit/habit-slice';
+import { getStreak } from '../../utils';
 
 const HabitStats: React.FC = () => {
   const habits = useSelector(selectHabits);

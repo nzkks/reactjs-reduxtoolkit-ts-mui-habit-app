@@ -4,8 +4,8 @@ import { useForm } from '@tanstack/react-form';
 import { z } from 'zod';
 import { Box, Button, FormControl, FormHelperText, InputLabel, MenuItem, Select, TextField } from '@mui/material';
 
-import { addHabit, updateHabit, HabitFrequency, selectHabitToEdit } from '../store/habit-slice';
-import { AppDispatch } from '../store/store';
+import { addHabit, updateHabit, HabitFrequency, selectHabitToEdit } from '../../state/habit/habit-slice';
+import { AppDispatch } from '../../state/store';
 
 const habitSchema = z.object({
   habitName: z.string().min(3, { message: 'Habit name must be at least 3 characters' }),

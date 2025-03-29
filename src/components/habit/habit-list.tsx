@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { List } from '@mui/material';
 
-import { Habit, selectFilteredHabits } from '../store/habit-slice';
+import { Habit, selectFilteredHabits } from '../../state/habit/habit-slice';
 import HabitRow from './habit-row';
 
 const HabitList: React.FC = () => {

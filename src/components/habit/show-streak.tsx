@@ -1,6 +1,6 @@
-import { Habit } from '../../state/habit/habit-slice';
 import { Box, LinearProgress, Typography } from '@mui/material';
 
+import { Habit } from '../../state/habit/habit-slice';
 import { getStreak } from '../../utils';
 
 const ShowStreak = ({ habit }: { habit: Habit }) => {

@@ -1,11 +1,10 @@
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from '@tanstack/react-form';
 import { z } from 'zod';
 import { Box, Button, FormControl, FormHelperText, InputLabel, MenuItem, Select, TextField } from '@mui/material';
 
 import { addHabit, updateHabit, HabitFrequency, selectHabitToEdit } from '../../state/habit/habit-slice';
-import { AppDispatch } from '../../state/store';
+import { useAppDispatch, useTypedSelector } from '../../hooks/store';
 
 const habitSchema = z.object({
   habitName: z.string().min(3, { message: 'Habit name must be at least 3 characters' }),
@@ -15,8 +14,8 @@ const habitSchema = z.object({
 type HabitSchema = z.infer<typeof habitSchema>;
 
 const HabitForm = () => {
-  const habitToEdit = useSelector(selectHabitToEdit);
-  const dispatch = useDispatch<AppDispatch>();
+  const habitToEdit = useTypedSelector(selectHabitToEdit);
+  const dispatch = useAppDispatch();
 
   const form = useForm({
     defaultValues: {

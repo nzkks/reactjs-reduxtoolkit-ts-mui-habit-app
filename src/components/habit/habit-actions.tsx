@@ -1,14 +1,13 @@
-import { useDispatch } from 'react-redux';
 import { Box, Button, IconButton } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { CheckCircle as CheckCircleIcon, Delete as DeleteIcon, Edit as EditIcon } from '@mui/icons-material';
 
-import { AppDispatch } from '../../state/store';
+import { useAppDispatch } from '../../hooks/store';
 import { Habit, editHabit, removeHabit, toggleComplete } from '../../state/habit/habit-slice';
 
 const HabitActions = ({ habit }: { habit: Habit }) => {
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useAppDispatch();
 
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up('sm'));

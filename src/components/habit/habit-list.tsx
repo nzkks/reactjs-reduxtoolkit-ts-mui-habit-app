@@ -1,12 +1,13 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+
 import { List } from '@mui/material';
 
+import { useTypedSelector } from '../../hooks/store';
 import { Habit, selectFilteredHabits } from '../../state/habit/habit-slice';
 import HabitRow from './habit-row';
 
 const HabitList: React.FC = () => {
-  const filteredHabits = useSelector(selectFilteredHabits);
+  const filteredHabits = useTypedSelector(selectFilteredHabits);
   return (
     <List>
       {filteredHabits.map((habit: Habit) => (

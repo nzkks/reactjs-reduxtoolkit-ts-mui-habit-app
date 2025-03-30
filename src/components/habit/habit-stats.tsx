@@ -1,16 +1,15 @@
 import React, { useEffect } from 'react';
 import { Paper, Typography, Box, LinearProgress } from '@mui/material';
-import { useDispatch, useSelector } from 'react-redux';
 
-import { AppDispatch } from '../../state/store';
+import { useAppDispatch, useTypedSelector } from '../../hooks/store';
 import { fetchHabits, selectError, selectHabits, selectIsLoading } from '../../state/habit/habit-slice';
 import { getStreak } from '../../utils';
 
 const HabitStats: React.FC = () => {
-  const habits = useSelector(selectHabits);
-  const isLoading = useSelector(selectIsLoading);
-  const error = useSelector(selectError);
-  const dispatch = useDispatch<AppDispatch>();
+  const habits = useTypedSelector(selectHabits);
+  const isLoading = useTypedSelector(selectIsLoading);
+  const error = useTypedSelector(selectError);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(fetchHabits());

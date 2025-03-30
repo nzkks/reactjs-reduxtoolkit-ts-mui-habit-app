@@ -1,6 +1,6 @@
 import { Provider } from 'react-redux';
 
-import store from './app/store.ts';
+import { store } from './app/store.ts';
 import HabitTracker from './features/habit/habit-tracker.tsx';
 
 function App() {

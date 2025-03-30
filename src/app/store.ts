@@ -1,14 +1,16 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { configureStore, ConfigureStoreOptions } from '@reduxjs/toolkit';
 
 import habitsReducer from '../features/habit/habit-slice';
 
-const store = configureStore({
-  reducer: {
-    habits: habitsReducer,
-  },
-});
+export const createStore = (options?: ConfigureStoreOptions['preloadedState'] | undefined) =>
+  configureStore({
+    reducer: {
+      habits: habitsReducer,
+    },
+    ...options,
+  });
+
+export const store = createStore();
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
-
-export default store;

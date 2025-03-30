@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { Paper, Typography, Box, LinearProgress } from '@mui/material';
 
-import { useAppDispatch, useTypedSelector } from '../../hooks/store';
-import { fetchHabits, selectError, selectHabits, selectIsLoading } from '../../state/habit/habit-slice';
-import { getStreak } from '../../utils';
+import { useAppDispatch, useTypedSelector } from '../../../hooks/store';
+import { fetchHabits, selectError, selectHabits, selectIsLoading } from '../../../features/habit/habit-slice';
+import { getStreak } from '../../../utils/habit-utils';
 
 const HabitStats: React.FC = () => {
   const habits = useTypedSelector(selectHabits);

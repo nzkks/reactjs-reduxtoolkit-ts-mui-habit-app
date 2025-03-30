@@ -1,10 +1,10 @@
 import { Suspense } from 'react';
 import { Container, Typography, Grid2 } from '@mui/material';
 
-import FrequencyFilter from './frequency-filter';
-import HabitForm from './habit-form';
-import HabitList from './habit-list';
-import HabitStats from './habit-stats';
+import FrequencyFilter from './components/frequency-filter';
+import HabitForm from './components/habit-form';
+import HabitList from './components/habit-list';
+import HabitStats from './components/habit-stats';
 
 export default function HabitTracker() {
   return (

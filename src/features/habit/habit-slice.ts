@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { AppDispatch, RootState } from '../store';
+import { AppDispatch, RootState } from '../../app/store';
 import { Habit, HabitFrequency, HabitFrequencyAndAll } from '../../types/Habit';
 
 interface HabitState {

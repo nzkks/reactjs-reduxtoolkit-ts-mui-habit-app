@@ -1,6 +1,6 @@
 import { Grid2, ListItem, Paper, Typography } from '@mui/material';
 
-import { Habit } from '../../state/habit/habit-slice';
+import { Habit } from '../../types/Habit';
 import ShowStreak from './show-streak';
 import HabitActions from './habit-actions';
 import { capitalize } from '../../utils';

@@ -3,7 +3,8 @@ import { useForm } from '@tanstack/react-form';
 import { z } from 'zod';
 import { Box, Button, FormControl, FormHelperText, InputLabel, MenuItem, Select, TextField } from '@mui/material';
 
-import { addHabit, updateHabit, HabitFrequency, selectHabitToEdit } from '../../state/habit/habit-slice';
+import { addHabit, updateHabit, selectHabitToEdit } from '../../state/habit/habit-slice';
+import { HabitFrequency } from '../../types/Habit';
 import { useAppDispatch, useTypedSelector } from '../../hooks/store';
 
 const habitSchema = z.object({

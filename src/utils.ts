@@ -1,4 +1,4 @@
-import { Habit } from './state/habit/habit-slice';
+import { Habit } from './types/Habit';
 
 export const getStreak = (habit: Habit) => {
   let streak = 0;

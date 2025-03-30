@@ -4,7 +4,8 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import { CheckCircle as CheckCircleIcon, Delete as DeleteIcon, Edit as EditIcon } from '@mui/icons-material';
 
 import { useAppDispatch } from '../../hooks/store';
-import { Habit, editHabit, removeHabit, toggleComplete } from '../../state/habit/habit-slice';
+import { editHabit, removeHabit, toggleComplete } from '../../state/habit/habit-slice';
+import { Habit } from '../../types/Habit';
 
 const HabitActions = ({ habit }: { habit: Habit }) => {
   const dispatch = useAppDispatch();

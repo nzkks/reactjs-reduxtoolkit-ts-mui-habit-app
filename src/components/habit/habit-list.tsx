@@ -1,9 +1,9 @@
 import React from 'react';
-
 import { List } from '@mui/material';
 
 import { useTypedSelector } from '../../hooks/store';
-import { Habit, selectFilteredHabits } from '../../state/habit/habit-slice';
+import { selectFilteredHabits } from '../../state/habit/habit-slice';
+import { Habit } from '../../types/Habit';
 import HabitRow from './habit-row';
 
 const HabitList: React.FC = () => {

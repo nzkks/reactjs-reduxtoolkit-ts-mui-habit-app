@@ -1,7 +1,7 @@
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 
-import { filterHabitsByFrequency, HabitFrequencyAndAll, selectSelectedFrequency } from '../../state/habit/habit-slice';
-
+import { filterHabitsByFrequency, selectSelectedFrequency } from '../../state/habit/habit-slice';
+import { HabitFrequencyAndAll } from '../../types/Habit';
 import { useAppDispatch, useTypedSelector } from '../../hooks/store';
 
 const frequencies = [

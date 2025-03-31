@@ -1,21 +1,18 @@
 import React from 'react';
 import { Paper, Typography, Box, LinearProgress } from '@mui/material';
 
-import { useTypedSelector } from '../../../hooks/store';
-import { selectError, selectHabits, selectIsLoading } from '../../../features/habit/habit-slice';
+import { useGetHabitsQuery } from '../../../app/services/habits';
 import { getStreak } from '../../../utils/habit-utils';
 
 const HabitStats: React.FC = () => {
-  const habits = useTypedSelector(selectHabits);
-  const isLoading = useTypedSelector(selectIsLoading);
-  const error = useTypedSelector(selectError);
+  const { data: habits = [], isLoading, error } = useGetHabitsQuery();
 
   if (isLoading) {
     return <LinearProgress />;
   }
 
   if (error) {
-    return <Typography color="error">{error}</Typography>;
+    return <Typography color="error">Error loading habits</Typography>;
   }
 
   const getTotalHabits = () =>

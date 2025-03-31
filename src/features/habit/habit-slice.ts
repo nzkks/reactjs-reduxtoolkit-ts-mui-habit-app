@@ -12,12 +12,12 @@ const initialState: HabitState = {
   error: null,
 };
 
-const updateFilteredHabits = (state: HabitState) => {
-  state.filteredHabits =
-    state.selectedFrequency === 'all'
-      ? state.habits
-      : state.habits.filter(h => h.frequency === state.selectedFrequency);
-};
+// const updateFilteredHabits = (state: HabitState) => {
+//   state.filteredHabits =
+//     state.selectedFrequency === 'all'
+//       ? state.habits
+//       : state.habits.filter(h => h.frequency === state.selectedFrequency);
+// };
 
 const habitSlice = createSlice({
   name: 'habits',
@@ -58,20 +58,20 @@ const habitSlice = createSlice({
     //   state.habitToEdit = null;
     //   updateFilteredHabits(state);
     // },
-    toggleComplete: (state, action: PayloadAction<{ id: string; date: string }>) => {
-      const habitFound = state.habits.find(h => h.id === action.payload.id);
+    // toggleComplete: (state, action: PayloadAction<{ id: string; date: string }>) => {
+    //   const habitFound = state.habits.find(h => h.id === action.payload.id);
 
-      if (habitFound) {
-        const index = habitFound.completedDates.indexOf(action.payload.date);
+    //   if (habitFound) {
+    //     const index = habitFound.completedDates.indexOf(action.payload.date);
 
-        if (index > -1) {
-          habitFound.completedDates.splice(index, 1);
-        } else {
-          habitFound.completedDates.push(action.payload.date);
-        }
-      }
-      updateFilteredHabits(state);
-    },
+    //     if (index > -1) {
+    //       habitFound.completedDates.splice(index, 1);
+    //     } else {
+    //       habitFound.completedDates.push(action.payload.date);
+    //     }
+    //   }
+    //   updateFilteredHabits(state);
+    // },
     // removeHabit: (state, action: PayloadAction<string>) => {
     //   state.habits = state.habits.filter(h => h.id !== action.payload);
     //   updateFilteredHabits(state);
@@ -110,7 +110,7 @@ const habitSlice = createSlice({
   },
 });
 
-export const { editHabit, toggleComplete, filterHabitsByFrequency } = habitSlice.actions;
+export const { editHabit, filterHabitsByFrequency } = habitSlice.actions;
 
 export const {
   selectHabits,

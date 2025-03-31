@@ -44,11 +44,55 @@ export const habitsApi = api.injectEndpoints({
       }),
       invalidatesTags: (result, error, arg) => [{ type: 'Habits', id: arg }],
     }),
+    // toggleComplete: builder.mutation<Habit, { id: string; date: string }>({
+    //   query: ({ id, ...patch }) => ({
+    //     url: `/habits/${id}/toggle-complete`,
+    //     method: 'PATCH',
+    //     body: patch,
+    //   }),
+    //   async onQueryStarted({ id, date, ...patch }, { dispatch, queryFulfilled }) {
+    //     const patchResult = dispatch(
+    //       api.util.updateQueryData('getHabits', id, (draft: Habit[]) => {
+    //         const habitIndex = draft.findIndex((habit: Habit) => habit.id === id);
+    //         if (habitIndex !== -1) {
+    //           const habit = draft[habitIndex];
+    //           const completedDatesIndex = habit.completedDates.indexOf(date);
+    //           if (completedDatesIndex !== -1) {
+    //             habit.completedDates.splice(completedDatesIndex, 1);
+    //           } else {
+    //             habit.completedDates.push(date);
+    //           }
+    //         }
+
+    //         Object.assign(draft[habitIndex], patch);
+    //       })
+    //     );
+
+    //     try {
+    //       await queryFulfilled;
+    //     } catch {
+    //       patchResult.undo();
+    //     }
+    //   },
+    //   invalidatesTags: (result, error, arg) => [{ type: 'Habits', id: arg.id }],
+    // }),
   }),
 });
 
-export const { useGetHabitsQuery, useAddHabitMutation, useUpdateHabitMutation, useDeleteHabitMutation } = habitsApi;
+export const {
+  useGetHabitsQuery,
+  useAddHabitMutation,
+  useUpdateHabitMutation,
+  useDeleteHabitMutation,
+  //useToggleCompleteMutation,
+} = habitsApi;
 
 export const {
-  endpoints: { getHabits, addHabit, updateHabit, deleteHabit },
+  endpoints: {
+    getHabits,
+    addHabit,
+    updateHabit,
+    deleteHabit,
+    //toggleComplete
+  },
 } = habitsApi;

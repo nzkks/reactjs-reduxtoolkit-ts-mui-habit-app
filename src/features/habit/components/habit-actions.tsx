@@ -4,11 +4,12 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import { CheckCircle as CheckCircleIcon, Delete as DeleteIcon, Edit as EditIcon } from '@mui/icons-material';
 
 import { useAppDispatch } from '../../../hooks/store';
-import { useDeleteHabitMutation } from '../../../app/services/habits';
-import { editHabit, toggleComplete } from '../../../features/habit/habit-slice';
+import { useDeleteHabitMutation, useUpdateHabitMutation } from '../../../app/services/habits';
+import { editHabit } from '../../../features/habit/habit-slice';
 import { Habit } from '../../../types/Habit';
 
 const HabitActions = ({ habit }: { habit: Habit }) => {
+  const [updateHabit] = useUpdateHabitMutation();
   const [deleteHabit] = useDeleteHabitMutation();
   const dispatch = useAppDispatch();
 
@@ -21,6 +22,21 @@ const HabitActions = ({ habit }: { habit: Habit }) => {
     if (window.confirm('Are you sure you want to delete this habit?')) {
       await deleteHabit(habit.id);
     }
+  };
+
+  const handleToggleComplete = async () => {
+    const habitCompletedDates = habit.completedDates;
+    const updatedHabitCompletedDates = [...habitCompletedDates];
+    const isDateExists = updatedHabitCompletedDates.indexOf(today);
+
+    if (isDateExists > -1) {
+      updatedHabitCompletedDates.splice(isDateExists, 1);
+    } else {
+      updatedHabitCompletedDates.push(today);
+    }
+
+    const updatedHabit = { ...habit, completedDates: updatedHabitCompletedDates };
+    await updateHabit(updatedHabit);
   };
 
   return (
@@ -36,7 +52,7 @@ const HabitActions = ({ habit }: { habit: Habit }) => {
       <Button
         variant="outlined"
         color={habit.completedDates.includes(today) ? 'success' : 'primary'}
-        onClick={() => dispatch(toggleComplete({ id: habit.id, date: today }))}
+        onClick={handleToggleComplete}
         startIcon={<CheckCircleIcon />}
       >
         {habit.completedDates.includes(today) ? 'Completed' : 'Mark Complete'}

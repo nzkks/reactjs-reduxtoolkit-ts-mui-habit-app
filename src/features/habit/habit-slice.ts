@@ -1,16 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { AppDispatch, RootState } from '../../app/store';
-import { Habit, HabitFrequency, HabitFrequencyAndAll } from '../../types/Habit';
-
-interface HabitState {
-  habits: Habit[];
-  habitToEdit: Habit | null;
-  selectedFrequency: HabitFrequencyAndAll;
-  filteredHabits: Habit[];
-  isLoading: boolean;
-  error: string | null;
-}
+import { Habit, HabitFrequency, HabitFrequencyAndAll, HabitState } from '../../types/Habit';
 
 const initialState: HabitState = {
   habits: [],

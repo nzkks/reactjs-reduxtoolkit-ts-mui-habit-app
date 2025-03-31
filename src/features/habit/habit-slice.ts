@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { HabitFrequency, HabitFrequencyAndAll, HabitState } from '../../types/Habit';
+import { HabitFrequencyAndAll, HabitState } from '../../types/Habit';
 import { habitsApi } from '../../app/services/habits';
 
 const initialState: HabitState = {
@@ -72,10 +72,10 @@ const habitSlice = createSlice({
       }
       updateFilteredHabits(state);
     },
-    removeHabit: (state, action: PayloadAction<string>) => {
-      state.habits = state.habits.filter(h => h.id !== action.payload);
-      updateFilteredHabits(state);
-    },
+    // removeHabit: (state, action: PayloadAction<string>) => {
+    //   state.habits = state.habits.filter(h => h.id !== action.payload);
+    //   updateFilteredHabits(state);
+    // },
     filterHabitsByFrequency: (state, action: PayloadAction<HabitFrequencyAndAll>) => {
       state.selectedFrequency = action.payload;
       if (action.payload === 'all') {
@@ -110,7 +110,7 @@ const habitSlice = createSlice({
   },
 });
 
-export const { editHabit, toggleComplete, removeHabit, filterHabitsByFrequency } = habitSlice.actions;
+export const { editHabit, toggleComplete, filterHabitsByFrequency } = habitSlice.actions;
 
 export const {
   selectHabits,

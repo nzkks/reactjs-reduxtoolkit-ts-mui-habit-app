@@ -4,16 +4,24 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import { CheckCircle as CheckCircleIcon, Delete as DeleteIcon, Edit as EditIcon } from '@mui/icons-material';
 
 import { useAppDispatch } from '../../../hooks/store';
-import { editHabit, removeHabit, toggleComplete } from '../../../features/habit/habit-slice';
+import { useDeleteHabitMutation } from '../../../app/services/habits';
+import { editHabit, toggleComplete } from '../../../features/habit/habit-slice';
 import { Habit } from '../../../types/Habit';
 
 const HabitActions = ({ habit }: { habit: Habit }) => {
+  const [deleteHabit] = useDeleteHabitMutation();
   const dispatch = useAppDispatch();
 
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up('sm'));
 
   const today = new Date().toISOString().split('T')[0];
+
+  const handleDeleteHabit = async () => {
+    if (window.confirm('Are you sure you want to delete this habit?')) {
+      await deleteHabit(habit.id);
+    }
+  };
 
   return (
     <Box sx={{ display: 'flex', justifyContent: 'flex-end', gap: 2 }}>
@@ -34,16 +42,11 @@ const HabitActions = ({ habit }: { habit: Habit }) => {
         {habit.completedDates.includes(today) ? 'Completed' : 'Mark Complete'}
       </Button>
       {matches ? (
-        <Button
-          variant="outlined"
-          color="error"
-          startIcon={<DeleteIcon />}
-          onClick={() => dispatch(removeHabit(habit.id))}
-        >
+        <Button variant="outlined" color="error" startIcon={<DeleteIcon />} onClick={handleDeleteHabit}>
           Delete
         </Button>
       ) : (
-        <IconButton color="error" onClick={() => dispatch(removeHabit(habit.id))} aria-label="delete">
+        <IconButton color="error" onClick={handleDeleteHabit} aria-label="delete">
           <DeleteIcon />
         </IconButton>
       )}

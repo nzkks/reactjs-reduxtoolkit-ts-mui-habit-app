@@ -1,7 +1,7 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { AppDispatch, RootState } from '../../app/store';
 import { Habit, HabitFrequency, HabitFrequencyAndAll, HabitState } from '../../types/Habit';
+import { habitsApi } from '../../app/services/habits';
 
 const initialState: HabitState = {
   habits: [],
@@ -95,51 +95,19 @@ const habitSlice = createSlice({
   },
   extraReducers: builder => {
     builder
-      .addCase(fetchHabits.pending, state => {
+      .addMatcher(habitsApi.endpoints.getHabits.matchPending, state => {
         state.isLoading = true;
       })
-      .addCase(fetchHabits.fulfilled, (state, action) => {
+      .addMatcher(habitsApi.endpoints.getHabits.matchFulfilled, (state, action) => {
         state.isLoading = false;
         state.habits = action.payload;
         state.filteredHabits = action.payload;
       })
-      .addCase(fetchHabits.rejected, (state, action) => {
+      .addMatcher(habitsApi.endpoints.getHabits.matchRejected, (state, action) => {
         state.isLoading = false;
         state.error = action.error.message || 'Failed to fetch habits';
       });
   },
-});
-
-const createAppAsyncThunk = createAsyncThunk.withTypes<{
-  state: RootState;
-  dispatch: AppDispatch;
-  rejectValue: string;
-  extra: { s: string; n: number };
-}>();
-
-export const fetchHabits = createAppAsyncThunk('habits/fetchHabits', async () => {
-  // Simulating an API call
-  await new Promise(resolve => setTimeout(resolve, 1000));
-
-  const mockHabits: Habit[] = [
-    {
-      id: '1',
-      habitName: 'Read',
-      frequency: 'weekly',
-      completedDates: [],
-      createdAt: new Date().toISOString(),
-      editedAt: new Date().toISOString(),
-    },
-    {
-      id: '2',
-      habitName: 'Exercise',
-      frequency: 'daily',
-      completedDates: [],
-      createdAt: new Date().toISOString(),
-      editedAt: new Date().toISOString(),
-    },
-  ];
-  return mockHabits;
 });
 
 export const { addHabit, editHabit, updateHabit, toggleComplete, removeHabit, filterHabitsByFrequency } =

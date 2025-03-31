@@ -7,5 +7,6 @@ const baseQueryWithRetry = retry(baseQuery, { maxRetries: 6 });
 export const api = createApi({
   reducerPath: 'splitApi',
   baseQuery: baseQueryWithRetry,
+  tagTypes: ['Habits'],
   endpoints: () => ({}),
 });

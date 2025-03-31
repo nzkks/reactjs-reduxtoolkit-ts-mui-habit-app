@@ -1,19 +1,14 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Paper, Typography, Box, LinearProgress } from '@mui/material';
 
-import { useAppDispatch, useTypedSelector } from '../../../hooks/store';
-import { fetchHabits, selectError, selectHabits, selectIsLoading } from '../../../features/habit/habit-slice';
+import { useTypedSelector } from '../../../hooks/store';
+import { selectError, selectHabits, selectIsLoading } from '../../../features/habit/habit-slice';
 import { getStreak } from '../../../utils/habit-utils';
 
 const HabitStats: React.FC = () => {
   const habits = useTypedSelector(selectHabits);
   const isLoading = useTypedSelector(selectIsLoading);
   const error = useTypedSelector(selectError);
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    dispatch(fetchHabits());
-  }, [dispatch]);
 
   if (isLoading) {
     return <LinearProgress />;

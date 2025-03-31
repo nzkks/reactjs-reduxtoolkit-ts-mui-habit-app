@@ -1,6 +1,6 @@
-import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
+import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from '@mui/material';
 
-import { filterHabitsByFrequency, selectSelectedFrequency } from '../habit-slice';
+import { selectSelectedFrequency, setSelectedFrequency } from '../habit-slice';
 import { HabitFrequencyAndAll } from '../../../types/Habit';
 import { useAppDispatch, useTypedSelector } from '../../../hooks/store';
 
@@ -16,18 +16,15 @@ export default function FrequencyFilter() {
   const dispatch = useAppDispatch();
   const selectedFrequency = useTypedSelector(selectSelectedFrequency);
 
-  const handleChange = (frequency: HabitFrequencyAndAll) => {
-    dispatch(filterHabitsByFrequency(frequency));
+  const handleChange = (event: SelectChangeEvent<HabitFrequencyAndAll>) => {
+    const frequency = event.target.value as HabitFrequencyAndAll;
+    dispatch(setSelectedFrequency(frequency));
   };
 
   return (
     <FormControl sx={{ minWidth: 120 }}>
       <InputLabel>Frequency</InputLabel>
-      <Select
-        value={selectedFrequency}
-        label="Frequency"
-        onChange={e => handleChange(e.target.value as HabitFrequencyAndAll)}
-      >
+      <Select value={selectedFrequency} label="Frequency" onChange={handleChange}>
         {frequencies.map(frequency => (
           <MenuItem key={frequency.value} value={frequency.value}>
             {frequency.label}

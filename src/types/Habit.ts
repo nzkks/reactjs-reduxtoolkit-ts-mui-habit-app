@@ -14,10 +14,6 @@ export type Habit = {
 };
 
 export type HabitState = {
-  habits: Habit[];
   habitToEdit: Habit | null;
   selectedFrequency: HabitFrequencyAndAll;
-  filteredHabits: Habit[];
-  isLoading: boolean;
-  error: string | null;
 };

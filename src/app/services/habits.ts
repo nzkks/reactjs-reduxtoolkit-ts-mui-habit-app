@@ -45,14 +45,14 @@ export const habitsApi = api.injectEndpoints({
       invalidatesTags: (result, error, arg) => [{ type: 'Habits', id: arg }],
     }),
     // toggleComplete: builder.mutation<Habit, { id: string; date: string }>({
-    //   query: ({ id, ...patch }) => ({
-    //     url: `/habits/${id}/toggle-complete`,
+    //   query: ({ id, date }) => ({
+    //     url: `/habits/${id}`,
     //     method: 'PATCH',
-    //     body: patch,
+    //     body: { date },
     //   }),
-    //   async onQueryStarted({ id, date, ...patch }, { dispatch, queryFulfilled }) {
+    //   async onQueryStarted({ id, date }, { dispatch, queryFulfilled }) {
     //     const patchResult = dispatch(
-    //       api.util.updateQueryData('getHabits', id, (draft: Habit[]) => {
+    //       api.util.updateQueryData('getHabits', undefined, (draft: Habit[]) => {
     //         const habitIndex = draft.findIndex((habit: Habit) => habit.id === id);
     //         if (habitIndex !== -1) {
     //           const habit = draft[habitIndex];
@@ -63,8 +63,6 @@ export const habitsApi = api.injectEndpoints({
     //             habit.completedDates.push(date);
     //           }
     //         }
-
-    //         Object.assign(draft[habitIndex], patch);
     //       })
     //     );
 
@@ -84,7 +82,7 @@ export const {
   useAddHabitMutation,
   useUpdateHabitMutation,
   useDeleteHabitMutation,
-  //useToggleCompleteMutation,
+  // useToggleCompleteMutation,
 } = habitsApi;
 
 export const {
@@ -93,6 +91,6 @@ export const {
     addHabit,
     updateHabit,
     deleteHabit,
-    //toggleComplete
+    // toggleComplete
   },
 } = habitsApi;

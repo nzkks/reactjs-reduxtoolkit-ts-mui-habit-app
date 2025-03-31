@@ -3,7 +3,8 @@ import { useForm } from '@tanstack/react-form';
 import { z } from 'zod';
 import { Box, Button, FormControl, FormHelperText, InputLabel, MenuItem, Select, TextField } from '@mui/material';
 
-import { addHabit, updateHabit, selectHabitToEdit } from '../../../features/habit/habit-slice';
+import { useAddHabitMutation } from '../../../app/services/habits';
+import { updateHabit, selectHabitToEdit } from '../../../features/habit/habit-slice';
 import { HabitFrequency } from '../../../types/Habit';
 import { useAppDispatch, useTypedSelector } from '../../../hooks/store';
 
@@ -15,6 +16,7 @@ const habitSchema = z.object({
 type HabitSchema = z.infer<typeof habitSchema>;
 
 const HabitForm = () => {
+  const [addHabit, { isLoading: isAddingHabit }] = useAddHabitMutation();
   const habitToEdit = useTypedSelector(selectHabitToEdit);
   const dispatch = useAppDispatch();
 
@@ -28,7 +30,7 @@ const HabitForm = () => {
       if (habitToEdit) {
         dispatch(updateHabit({ id: habitToEdit.id, ...value }));
       } else {
-        dispatch(addHabit(value));
+        await addHabit(value);
       }
       form.reset();
     },
@@ -92,11 +94,11 @@ const HabitForm = () => {
         />
 
         <form.Subscribe
-          selector={state => [state.canSubmit, state.isSubmitting]}
-          children={([canSubmit, isSubmitting]) => (
+          selector={state => [state.canSubmit]}
+          children={([canSubmit]) => (
             <Box sx={{ display: 'flex', gap: 2 }}>
               <Button variant="contained" type="submit" color="primary" disabled={!canSubmit}>
-                {isSubmitting ? '...' : habitToEdit ? 'Update Habit' : 'Add Habit'}
+                {isAddingHabit ? '...' : habitToEdit ? 'Update Habit' : 'Add Habit'}
               </Button>
               <Button variant="contained" type="reset" color="warning" onClick={() => form.reset()}>
                 Reset

@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { Habit, HabitFrequency, HabitFrequencyAndAll, HabitState } from '../../types/Habit';
+import { HabitFrequency, HabitFrequencyAndAll, HabitState } from '../../types/Habit';
 import { habitsApi } from '../../app/services/habits';
 
 const initialState: HabitState = {
@@ -23,19 +23,19 @@ const habitSlice = createSlice({
   name: 'habits',
   initialState,
   reducers: {
-    addHabit: (state, action: PayloadAction<{ habitName: string; frequency: HabitFrequency }>) => {
-      const newHabit: Habit = {
-        id: Date.now().toString(),
-        habitName: action.payload.habitName,
-        frequency: action.payload.frequency,
-        completedDates: [],
-        createdAt: new Date().toISOString(),
-        editedAt: new Date().toISOString(),
-      };
+    // addHabit: (state, action: PayloadAction<{ habitName: string; frequency: HabitFrequency }>) => {
+    //   const newHabit: Habit = {
+    //     id: Date.now().toString(),
+    //     habitName: action.payload.habitName,
+    //     frequency: action.payload.frequency,
+    //     completedDates: [],
+    //     createdAt: new Date().toISOString(),
+    //     editedAt: new Date().toISOString(),
+    //   };
 
-      state.habits.push(newHabit);
-      updateFilteredHabits(state);
-    },
+    //   state.habits.push(newHabit);
+    //   updateFilteredHabits(state);
+    // },
     editHabit: (state, action: PayloadAction<{ id: string }>) => {
       const habitFound = state.habits.find(h => h.id === action.payload.id);
 
@@ -110,8 +110,7 @@ const habitSlice = createSlice({
   },
 });
 
-export const { addHabit, editHabit, updateHabit, toggleComplete, removeHabit, filterHabitsByFrequency } =
-  habitSlice.actions;
+export const { editHabit, updateHabit, toggleComplete, removeHabit, filterHabitsByFrequency } = habitSlice.actions;
 
 export const {
   selectHabits,

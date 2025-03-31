@@ -3,10 +3,10 @@ import { useForm } from '@tanstack/react-form';
 import { z } from 'zod';
 import { Box, Button, FormControl, FormHelperText, InputLabel, MenuItem, Select, TextField } from '@mui/material';
 
-import { useAddHabitMutation } from '../../../app/services/habits';
-import { updateHabit, selectHabitToEdit } from '../../../features/habit/habit-slice';
+import { useAddHabitMutation, useUpdateHabitMutation } from '../../../app/services/habits';
+import { selectHabitToEdit } from '../../../features/habit/habit-slice';
 import { HabitFrequency } from '../../../types/Habit';
-import { useAppDispatch, useTypedSelector } from '../../../hooks/store';
+import { useTypedSelector } from '../../../hooks/store';
 
 const habitSchema = z.object({
   habitName: z.string().min(3, { message: 'Habit name must be at least 3 characters' }),
@@ -17,8 +17,8 @@ type HabitSchema = z.infer<typeof habitSchema>;
 
 const HabitForm = () => {
   const [addHabit, { isLoading: isAddingHabit }] = useAddHabitMutation();
+  const [updateHabit, { isLoading: isUpdatingHabit }] = useUpdateHabitMutation();
   const habitToEdit = useTypedSelector(selectHabitToEdit);
-  const dispatch = useAppDispatch();
 
   const form = useForm({
     defaultValues: {
@@ -28,7 +28,10 @@ const HabitForm = () => {
     validators: { onChange: habitSchema },
     onSubmit: async ({ value }) => {
       if (habitToEdit) {
-        dispatch(updateHabit({ id: habitToEdit.id, ...value }));
+        await updateHabit({
+          ...habitToEdit,
+          ...value,
+        });
       } else {
         await addHabit(value);
       }
@@ -98,7 +101,7 @@ const HabitForm = () => {
           children={([canSubmit]) => (
             <Box sx={{ display: 'flex', gap: 2 }}>
               <Button variant="contained" type="submit" color="primary" disabled={!canSubmit}>
-                {isAddingHabit ? '...' : habitToEdit ? 'Update Habit' : 'Add Habit'}
+                {isAddingHabit || isUpdatingHabit ? '...' : habitToEdit ? 'Update Habit' : 'Add Habit'}
               </Button>
               <Button variant="contained" type="reset" color="warning" onClick={() => form.reset()}>
                 Reset

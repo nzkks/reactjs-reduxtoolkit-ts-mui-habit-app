@@ -43,21 +43,21 @@ const habitSlice = createSlice({
         state.habitToEdit = habitFound;
       }
     },
-    updateHabit: (state, action: PayloadAction<{ id: string; habitName: string; frequency: HabitFrequency }>) => {
-      const habitFound = state.habits.find(h => h.id === action.payload.id);
+    // updateHabit: (state, action: PayloadAction<{ id: string; habitName: string; frequency: HabitFrequency }>) => {
+    //   const habitFound = state.habits.find(h => h.id === action.payload.id);
 
-      if (habitFound) {
-        const updatedHabit = { ...habitFound };
+    //   if (habitFound) {
+    //     const updatedHabit = { ...habitFound };
 
-        updatedHabit.habitName = action.payload.habitName;
-        updatedHabit.frequency = action.payload.frequency;
-        updatedHabit.editedAt = new Date().toISOString();
+    //     updatedHabit.habitName = action.payload.habitName;
+    //     updatedHabit.frequency = action.payload.frequency;
+    //     updatedHabit.editedAt = new Date().toISOString();
 
-        state.habits = state.habits.map(h => (h.id === action.payload.id ? updatedHabit : h));
-      }
-      state.habitToEdit = null;
-      updateFilteredHabits(state);
-    },
+    //     state.habits = state.habits.map(h => (h.id === action.payload.id ? updatedHabit : h));
+    //   }
+    //   state.habitToEdit = null;
+    //   updateFilteredHabits(state);
+    // },
     toggleComplete: (state, action: PayloadAction<{ id: string; date: string }>) => {
       const habitFound = state.habits.find(h => h.id === action.payload.id);
 
@@ -110,7 +110,7 @@ const habitSlice = createSlice({
   },
 });
 
-export const { editHabit, updateHabit, toggleComplete, removeHabit, filterHabitsByFrequency } = habitSlice.actions;
+export const { editHabit, toggleComplete, removeHabit, filterHabitsByFrequency } = habitSlice.actions;
 
 export const {
   selectHabits,

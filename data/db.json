@@ -2,11 +2,11 @@
   "habits": [
     {
       "id": "1",
-      "habitName": "Read books",
-      "frequency": "weekly",
+      "habitName": "Read lot of books",
+      "frequency": "fortnightly",
       "completedDates": [],
       "createdAt": "2025-03-27T07:29:38.616Z",
-      "editedAt": "2025-03-28T07:29:38.616Z"
+      "editedAt": "2025-03-31T06:21:47.190Z"
     },
     {
       "id": "2",
@@ -18,11 +18,11 @@
     },
     {
       "id": "b913",
-      "habitName": "gfggh",
-      "frequency": "fortnightly",
+      "habitName": "hgjgjl jmgkj",
+      "frequency": "monthly",
       "completedDates": [],
       "createdAt": "2025-03-31T05:55:48.311Z",
-      "editedAt": "2025-03-31T05:55:48.311Z"
+      "editedAt": "2025-03-31T06:16:26.217Z"
     }
   ]
 }

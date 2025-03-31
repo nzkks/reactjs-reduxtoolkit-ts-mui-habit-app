@@ -26,11 +26,22 @@ export const habitsApi = api.injectEndpoints({
       }),
       invalidatesTags: [{ type: 'Habits', id: 'LIST' }],
     }),
+    updateHabit: builder.mutation<Habit, Habit>({
+      query: body => ({
+        url: `/habits/${body.id}`,
+        method: 'PUT',
+        body: {
+          ...body,
+          editedAt: new Date().toISOString(),
+        },
+      }),
+      invalidatesTags: (result, error, arg) => [{ type: 'Habits', id: arg.id }],
+    }),
   }),
 });
 
-export const { useGetHabitsQuery, useAddHabitMutation } = habitsApi;
+export const { useGetHabitsQuery, useAddHabitMutation, useUpdateHabitMutation } = habitsApi;
 
 export const {
-  endpoints: { getHabits, addHabit },
+  endpoints: { getHabits, addHabit, updateHabit },
 } = habitsApi;

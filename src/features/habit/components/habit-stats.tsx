@@ -1,27 +1,18 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Paper, Typography, Box, LinearProgress } from '@mui/material';
-import { useDispatch, useSelector } from 'react-redux';
 
-import { AppDispatch } from '../store/store';
-import { fetchHabits, selectError, selectHabits, selectIsLoading } from '../store/habit-slice';
-import { getStreak } from '../utils';
+import { useGetHabitsQuery } from '../../../app/services/habits';
+import { getStreak } from '../../../utils/habit-utils';
 
 const HabitStats: React.FC = () => {
-  const habits = useSelector(selectHabits);
-  const isLoading = useSelector(selectIsLoading);
-  const error = useSelector(selectError);
-  const dispatch = useDispatch<AppDispatch>();
-
-  useEffect(() => {
-    dispatch(fetchHabits());
-  }, [dispatch]);
+  const { data: habits = [], isLoading, error } = useGetHabitsQuery();
 
   if (isLoading) {
     return <LinearProgress />;
   }
 
   if (error) {
-    return <Typography color="error">{error}</Typography>;
+    return <Typography color="error">Error loading habits</Typography>;
   }
 
   const getTotalHabits = () =>

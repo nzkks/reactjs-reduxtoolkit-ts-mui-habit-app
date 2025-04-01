@@ -1,9 +1,9 @@
 import { Grid2, ListItem, Paper, Typography } from '@mui/material';
 
-import { Habit } from '../store/habit-slice';
+import { Habit } from '../../../types/Habit';
 import ShowStreak from './show-streak';
 import HabitActions from './habit-actions';
-import { capitalize } from '../utils';
+import { capitalize } from '../../../utils/utils';
 
 type HabbitRowProps = {
   habit: Habit;

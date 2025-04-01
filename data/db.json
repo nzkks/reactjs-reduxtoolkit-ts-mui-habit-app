@@ -1,0 +1,20 @@
+{
+  "habits": [
+    {
+      "id": "1",
+      "habitName": "Read lot of books",
+      "frequency": "fortnightly",
+      "completedDates": [],
+      "createdAt": "2025-03-27T07:29:38.616Z",
+      "editedAt": "2025-03-31T10:05:15.329Z"
+    },
+    {
+      "id": "2",
+      "habitName": "Write code",
+      "frequency": "daily",
+      "completedDates": [],
+      "createdAt": "2025-03-27T07:29:38.616Z",
+      "editedAt": "2025-03-31T10:05:23.168Z"
+    }
+  ]
+}

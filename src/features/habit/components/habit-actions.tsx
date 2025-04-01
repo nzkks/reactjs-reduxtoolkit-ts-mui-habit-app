@@ -5,7 +5,7 @@ import { CheckCircle as CheckCircleIcon, Delete as DeleteIcon, Edit as EditIcon 
 
 import { useAppDispatch } from '../../../hooks/store';
 import { useDeleteHabitMutation, useUpdateHabitMutation } from '../../../app/services/habits';
-import { editHabit } from '../../../features/habit/habit-slice';
+import { setHabitIdToEdit } from '../../../features/habit/habit-slice';
 import { Habit } from '../../../types/Habit';
 
 const HabitActions = ({ habit }: { habit: Habit }) => {
@@ -44,7 +44,7 @@ const HabitActions = ({ habit }: { habit: Habit }) => {
       <Button
         variant="outlined"
         color="success"
-        onClick={() => dispatch(editHabit({ id: habit.id }))}
+        onClick={() => dispatch(setHabitIdToEdit(habit.id))}
         startIcon={<EditIcon />}
       >
         Edit

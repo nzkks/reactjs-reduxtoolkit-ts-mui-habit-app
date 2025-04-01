@@ -35,20 +35,30 @@ export const habitsApi = api.injectEndpoints({
           editedAt: new Date().toISOString(),
         },
       }),
-      invalidatesTags: (result, error, arg) => [{ type: 'Habits', id: arg.id }],
+      invalidatesTags: (_, _2, arg) => [{ type: 'Habits', id: arg.id }], // (result, error, arg)
     }),
     deleteHabit: builder.mutation<Habit, string>({
       query: id => ({
         url: `/habits/${id}`,
         method: 'DELETE',
       }),
-      invalidatesTags: (result, error, arg) => [{ type: 'Habits', id: arg }],
+      invalidatesTags: (_, _2, id) => [{ type: 'Habits', id }], // (result, error, id)
+    }),
+    getHabit: builder.query<Habit, string>({
+      query: id => `/habits/${id}`,
+      providesTags: (_, _2, id) => [{ type: 'Habits', id }], // (result, error, id)
     }),
   }),
 });
 
-export const { useGetHabitsQuery, useAddHabitMutation, useUpdateHabitMutation, useDeleteHabitMutation } = habitsApi;
+export const {
+  useGetHabitsQuery,
+  useAddHabitMutation,
+  useUpdateHabitMutation,
+  useDeleteHabitMutation,
+  useGetHabitQuery,
+} = habitsApi;
 
 export const {
-  endpoints: { getHabits, addHabit, updateHabit, deleteHabit },
+  endpoints: { getHabits, addHabit, updateHabit, deleteHabit, getHabit },
 } = habitsApi;

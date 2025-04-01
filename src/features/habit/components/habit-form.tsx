@@ -3,10 +3,10 @@ import { useForm } from '@tanstack/react-form';
 import { z } from 'zod';
 import { Box, Button, FormControl, FormHelperText, InputLabel, MenuItem, Select, TextField } from '@mui/material';
 
-import { useAddHabitMutation, useUpdateHabitMutation } from '../../../app/services/habits';
-import { selectHabitToEdit } from '../../../features/habit/habit-slice';
+import { useAddHabitMutation, useGetHabitQuery, useUpdateHabitMutation } from '../../../app/services/habits';
+import { selectHabitIdToEdit, setHabitIdToEdit } from '../../../features/habit/habit-slice';
 import { HabitFrequency } from '../../../types/Habit';
-import { useTypedSelector } from '../../../hooks/store';
+import { useAppDispatch, useTypedSelector } from '../../../hooks/store';
 
 const habitSchema = z.object({
   habitName: z.string().min(3, { message: 'Habit name must be at least 3 characters' }),
@@ -16,9 +16,14 @@ const habitSchema = z.object({
 type HabitSchema = z.infer<typeof habitSchema>;
 
 const HabitForm = () => {
+  const dispatch = useAppDispatch();
   const [addHabit, { isLoading: isAddingHabit }] = useAddHabitMutation();
   const [updateHabit, { isLoading: isUpdatingHabit }] = useUpdateHabitMutation();
-  const habitToEdit = useTypedSelector(selectHabitToEdit);
+  const habitIdToEdit = useTypedSelector(selectHabitIdToEdit);
+
+  const { data: habitToEdit } = useGetHabitQuery(habitIdToEdit ?? '', {
+    skip: !habitIdToEdit,
+  });
 
   const form = useForm({
     defaultValues: {
@@ -27,11 +32,12 @@ const HabitForm = () => {
     } as HabitSchema,
     validators: { onChange: habitSchema },
     onSubmit: async ({ value }) => {
-      if (habitToEdit) {
+      if (habitIdToEdit && habitToEdit) {
         await updateHabit({
           ...habitToEdit,
           ...value,
         });
+        dispatch(setHabitIdToEdit(null));
       } else {
         await addHabit(value);
       }
@@ -43,10 +49,10 @@ const HabitForm = () => {
     if (habitToEdit) {
       form.setFieldValue('habitName', habitToEdit.habitName);
       form.setFieldValue('frequency', habitToEdit.frequency);
+    } else {
+      form.reset();
     }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [habitToEdit]);
+  }, [habitToEdit, form]);
 
   return (
     <form
@@ -101,7 +107,7 @@ const HabitForm = () => {
           children={([canSubmit]) => (
             <Box sx={{ display: 'flex', gap: 2 }}>
               <Button variant="contained" type="submit" color="primary" disabled={!canSubmit}>
-                {isAddingHabit || isUpdatingHabit ? '...' : habitToEdit ? 'Update Habit' : 'Add Habit'}
+                {isAddingHabit || isUpdatingHabit ? '...' : habitIdToEdit ? 'Update Habit' : 'Add Habit'}
               </Button>
               <Button variant="contained" type="reset" color="warning" onClick={() => form.reset()}>
                 Reset

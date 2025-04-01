@@ -14,6 +14,6 @@ export type Habit = {
 };
 
 export type HabitState = {
-  habitToEdit: Habit | null;
+  habitToEditId: string | null;
   selectedFrequency: HabitFrequencyAndAll;
 };

@@ -3,7 +3,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { HabitFrequencyAndAll, HabitState } from '../../types/Habit';
 
 const initialState: HabitState = {
-  habitToEdit: null,
+  habitToEditId: null,
   selectedFrequency: 'all',
 };
 
@@ -11,25 +11,21 @@ const habitSlice = createSlice({
   name: 'habits',
   initialState,
   reducers: {
-    editHabit: (state, action: PayloadAction<{ id: string }>) => {
-      // TODO: access RTK Query cache to get the habit
-      // const habitFound = state.habits.find(h => h.id === action.payload.id);
-      // if (habitFound) {
-      //   state.habitToEdit = habitFound;
-      // }
+    setHabitIdToEdit: (state, action: PayloadAction<string | null>) => {
+      state.habitToEditId = action.payload;
     },
     setSelectedFrequency: (state, action: PayloadAction<HabitFrequencyAndAll>) => {
       state.selectedFrequency = action.payload;
     },
   },
   selectors: {
-    selectHabitToEdit: state => state.habitToEdit,
+    selectHabitIdToEdit: state => state.habitToEditId,
     selectSelectedFrequency: state => state.selectedFrequency,
   },
 });
 
-export const { editHabit, setSelectedFrequency } = habitSlice.actions;
+export const { setHabitIdToEdit, setSelectedFrequency } = habitSlice.actions;
 
-export const { selectHabitToEdit, selectSelectedFrequency } = habitSlice.selectors;
+export const { selectHabitIdToEdit, selectSelectedFrequency } = habitSlice.selectors;
 
 export default habitSlice.reducer;

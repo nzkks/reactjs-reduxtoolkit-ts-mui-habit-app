@@ -9,19 +9,21 @@
 
 - React 19
 - Typescript
-- Redux Toolkit
+- Redux Toolkit + Redux Toolkit Query
 - Tanstack Form
 - Zod
 - Material-UI
+- json-server
 
 ### Implementation Highlights
 
-- Implemented a central store using Redux Toolkit
+- Implemented a central store using Redux Toolkit and Redux Toolkit Query
+- store the habits in local json file and gets updated using json-server
 
 ### TODOs:
 
-- store habits in the database. Example: Sqlite
-- add persistence while page refresh. Example: localStorage
+- ~~store habits in the database. Example: db.json file and updating through json-Server~~
+- add filter persistence while page refresh. Example: sessionStorage
 - ~~edit a habit (title and frequency)~~
 - ~~show a message when there are no habits~~
 - ~~add a frequency filter~~
